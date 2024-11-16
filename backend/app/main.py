@@ -67,14 +67,15 @@ def simular_prestamo(request: PrestamoRequest):
     Simula un préstamo con cuota mensual, periodo de carencia opcional
     y fecha estimada de finalización.
     """
+
     # Validar fecha de inicio
     try:
         fecha_inicio = datetime.strptime(request.fecha_inicio, "%d/%m/%Y")
-    except ValueError:
+    except ValueError as exc:
         raise HTTPException(
             status_code=400,
             detail="Formato de fecha inválido. Use DD/MM/AAAA.",
-        )
+        ) from exc
 
     # Validaciones adicionales
     if request.duracion_meses <= 0:
