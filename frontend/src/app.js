@@ -1,6 +1,7 @@
 // Seleccionar el formulario
 const form = document.getElementById("loan-form");
 
+// Agregar el evento "submit" al formulario
 form.addEventListener("submit", async (event) => {
   event.preventDefault(); // Evitar que el formulario recargue la página
 
@@ -14,31 +15,40 @@ form.addEventListener("submit", async (event) => {
   const mesesCarencia = periodoCarencia
     ? parseInt(document.getElementById("meses-carencia").value)
     : 0;
-  const fechaInicio = document.getElementById("fecha-inicio").value;
 
-  // Validar los campos
+  // Capturar y convertir la fecha al formato DD/MM/AAAA
+  const fechaInicioRaw = document.getElementById("fecha-inicio").value; // Formato AAAA-MM-DD
+  let fechaInicio = "";
+  if (fechaInicioRaw) {
+    const [year, month, day] = fechaInicioRaw.split("-"); // Separar los componentes
+    fechaInicio = `${day}/${month}/${year}`; // Reorganizar en formato DD/MM/AAAA
+  }
+
+  // Validar los campos del formulario
+  const errores = [];
   if (isNaN(capital) || capital <= 0) {
-    alert("Por favor, ingresa un valor válido para el capital.");
-    return;
+    errores.push("Por favor, ingresa un valor válido para el capital.");
   }
-
   if (isNaN(tasaInteres) || tasaInteres <= 0) {
-    alert("Por favor, ingresa un valor válido para la tasa de interés.");
-    return;
+    errores.push("Por favor, ingresa un valor válido para la tasa de interés.");
   }
-
   if (isNaN(duracionMeses) || duracionMeses <= 0) {
-    alert("Por favor, ingresa un valor válido para la duración del préstamo.");
-    return;
+    errores.push(
+      "Por favor, ingresa un valor válido para la duración del préstamo."
+    );
   }
-
   if (periodoCarencia && (isNaN(mesesCarencia) || mesesCarencia < 0)) {
-    alert("Por favor, ingresa un valor válido para los meses de carencia.");
-    return;
+    errores.push(
+      "Por favor, ingresa un valor válido para los meses de carencia."
+    );
+  }
+  if (!fechaInicioRaw) {
+    errores.push("Por favor, selecciona una fecha de inicio válida.");
   }
 
-  if (!fechaInicio) {
-    alert("Por favor, ingresa una fecha de inicio válida.");
+  // Mostrar errores si existen
+  if (errores.length > 0) {
+    alert(errores.join("\n"));
     return;
   }
 
@@ -49,7 +59,7 @@ form.addEventListener("submit", async (event) => {
     duracion_meses: duracionMeses,
     periodo_carencia: periodoCarencia,
     meses_carencia: mesesCarencia,
-    fecha_inicio: fechaInicio, // Debe estar en formato DD/MM/AAAA
+    fecha_inicio: fechaInicio, // Usar la fecha formateada correctamente
   };
 
   try {
@@ -65,7 +75,7 @@ form.addEventListener("submit", async (event) => {
       }
     );
 
-    // Manejar errores del servidor
+    // Manejar errores de respuesta del servidor
     if (!response.ok) {
       const errorData = await response.json();
       alert(`Error del servidor: ${errorData.detail}`);
@@ -75,11 +85,17 @@ form.addEventListener("submit", async (event) => {
     // Obtener la respuesta del backend
     const data = await response.json();
 
+    // Formatear los pagos durante la carencia para mostrar correctamente
+    const pagosCarencia =
+      data.pagos_carencia.length > 0
+        ? data.pagos_carencia.map((pago) => `${pago.toFixed(2)} EUR`).join(", ")
+        : "Ninguno";
+
     // Mostrar los resultados al usuario
     alert(
       `Simulación completada:\n\n` +
         `Cuota mensual: ${data.cuota_mensual.toFixed(2)} EUR\n` +
-        `Pagos durante carencia: ${data.pagos_carencia.join(", ")} EUR\n` +
+        `Pagos durante carencia: ${pagosCarencia}\n` +
         `Fecha de finalización: ${data.fecha_finalizacion}`
     );
   } catch (error) {
