@@ -18,11 +18,13 @@ Este proyecto es una aplicación web que permite simular préstamos financieros,
 ## **Tecnologías utilizadas**
 
 ### Backend:
+
 - **Python**: Lógica de cálculo y API.
 - **FastAPI**: Framework para construir la API del backend.
 - **Uvicorn**: Servidor ASGI para ejecutar el backend.
 
 ### Frontend:
+
 - **HTML5 y JavaScript**: Estructura e interacción.
 - **TailwindCSS**: Framework de diseño para estilos rápidos y modernos.
 - **Google Fonts**: Para una tipografía profesional.
@@ -32,17 +34,21 @@ Este proyecto es una aplicación web que permite simular préstamos financieros,
 ## **Requisitos previos**
 
 ### **1. Instalación de Node.js**
+
 - Asegúrate de tener instalado Node.js para el frontend. Descárgalo desde [Node.js](https://nodejs.org/).
 
 ### **2. Instalación de Python**
+
 - Requiere Python 3.9 o superior. Descárgalo desde [Python.org](https://www.python.org/).
 
 ### **3. Clonar el proyecto**
+
 Clona este repositorio en tu máquina local:
 
 ```bash
 git clone https://github.com/tu_usuario/simulador_prestamos.git
 cd simulador_prestamos
+```
 
 ---
 
@@ -51,16 +57,19 @@ cd simulador_prestamos
 ### **1. Configuración del backend**
 
 1. Navega a la carpeta raíz del proyecto:
+
    ```bash
    cd calculadora_financiera
    ```
 
 2. Crea un entorno virtual:
+
    ```bash
    python -m venv venv
    ```
 
 3. Activa el entorno virtual:
+
    - En Windows:
      ```bash
      venv\Scripts\activate
@@ -71,11 +80,13 @@ cd simulador_prestamos
      ```
 
 4. Instala las dependencias del backend:
+
    ```bash
    pip install -r requirements.txt
    ```
 
 5. Ejecuta el servidor del backend:
+
    ```bash
    uvicorn app.main:app --reload
    ```
@@ -89,16 +100,19 @@ cd simulador_prestamos
 ### **2. Configuración del frontend**
 
 1. Navega a la carpeta `frontend`:
+
    ```bash
    cd frontend
    ```
 
 2. Instala las dependencias de Node.js:
+
    ```bash
    npm install
    ```
 
 3. Compila los estilos de TailwindCSS:
+
    ```bash
    npx tailwindcss -i ./src/styles.css -o ./dist/styles.css --watch
    ```
@@ -112,6 +126,7 @@ cd simulador_prestamos
 ## **Uso de la aplicación**
 
 1. Completa el formulario:
+
    - Ingresa el capital del préstamo.
    - Proporciona la tasa de interés anual (%).
    - Especifica la duración en meses.
@@ -155,13 +170,15 @@ calculadora_financiera/
 ---
 
 ## **Capturas del proyecto**
-*(Agrega capturas de pantalla del diseño y de la API en funcionamiento para que se vea más profesional.)*
+
+_(Agrega capturas de pantalla del diseño y de la API en funcionamiento para que se vea más profesional.)_
 
 ---
 
 ## **Contribuciones**
 
 Si deseas contribuir al proyecto:
+
 1. Haz un fork del repositorio.
 2. Crea una nueva rama:
    ```bash
@@ -182,10 +199,3 @@ Si deseas contribuir al proyecto:
 ## **Licencia**
 
 Este proyecto está bajo la licencia MIT. Puedes consultar el archivo `LICENSE` para más información.
-```
-
----
-
-### **Siguientes pasos**
-- Personaliza el archivo `README.md` con capturas de pantalla y, si tienes un repositorio en GitHub, agrega un enlace.
-- Si necesitas agregar secciones adicionales, como "Problemas conocidos" o "Próximas mejoras", dímelo y lo adaptamos. 😊
